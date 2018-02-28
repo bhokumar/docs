@@ -1,1 +1,40 @@
 0bc770
+
+
+
+
+#productImage{
+    display: block;
+    margin: 0 auto;
+    height: 200px;
+    width: 200px;
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn;
+}
+
+.animated{
+    animation-duration: 3s;
+    -webkit-animation-duration: 3s;
+    animation-iteration-count: 3;
+    -webkit-animation-iteration-count: 3;
+    animation-direction: alternate;
+    -webkit-animation-direction: alternate;
+    animation-delay: 2s;
+    -webkit-animation-delay: 2s;
+}
+
+@keyframes fadeIn{
+    0% {opacity: 0;width: 100px;height: 100px}
+    25% {opacity: 1}
+    50% {opacity: 0.5;width: 200px;height: 200px}
+    90% {opacity: 1}
+    100% {opacity: 0;width: 0px;height: 0px}
+}
+
+@-webkit-keyframes fadeIn{
+    0% {opacity: 0;width: 100px;height: 100px}
+    25% {opacity: 1}
+    50% {opacity: 0.5;width: 200px;height: 200px}
+    90% {opacity: 1}
+    100% {opacity: 0;width: 0px;height: 0px}  
+}
