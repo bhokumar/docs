@@ -7,3 +7,8 @@ https://kubernetes.io/docs/tasks/tools/install-minikube/
  Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
  Open Hyperv manager create virtual switch
  share the external Internet with Network sharing center
+ 
+ 
+ 
+ 
+ minikube start --vm-driver=hyperv --hyperv-virtual-switch=VirtualSwitch
