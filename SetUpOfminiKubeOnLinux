@@ -12,3 +12,6 @@ https://kubernetes.io/docs/tasks/tools/install-minikube/
  
  
  minikube start --vm-driver=hyperv --hyperv-virtual-switch=VirtualSwitch
+ 
+ 
+ https://github.com/kubernetes/minikube/issues/3354
