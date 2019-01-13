@@ -3,3 +3,7 @@ https://linuxhint.com/install-minikube-ubuntu/
 https://stackoverflow.com/questions/46934453/minikube-not-starting-on-ubuntu-throwing-errors
 
 https://kubernetes.io/docs/tasks/tools/install-minikube/
+
+ Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
+ Open Hyperv manager create virtual switch
+ share the external Internet with Network sharing center
