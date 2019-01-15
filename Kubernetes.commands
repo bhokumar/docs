@@ -1,0 +1,3 @@
+
+Command to connect current terminal to minikubes docker server
+eval $(minikube docker-env)
