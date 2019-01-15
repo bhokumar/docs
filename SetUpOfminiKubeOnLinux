@@ -3,3 +3,71 @@ https://linuxhint.com/install-minikube-ubuntu/
 https://stackoverflow.com/questions/46934453/minikube-not-starting-on-ubuntu-throwing-errors
 
 https://kubernetes.io/docs/tasks/tools/install-minikube/
+
+ Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
+ Open Hyperv manager create virtual switch
+ share the external Internet with Network sharing center
+ 
+ 
+ 
+ 
+ minikube start --vm-driver=hyperv --hyperv-virtual-switch=VirtualSwitch
+ 
+ 
+ https://github.com/kubernetes/minikube/issues/3354
+ 
+ 
+ Step One
+
+start minikube VM
+
+minikube start
+
+Step Two
+
+open a new terminal and ssh into the minikube VM
+
+minikube ssh
+
+Step Three
+
+acquire the IP address of minikube VM, the "eth0" Network Adapter is what we need
+
+ifconfig
+
+Step Four
+
+stop the running minikube VM by press Ctrl+C in the original terminal, then run
+
+minikube stop
+
+Step Five
+
+assume the above IP is 192.168.99.xxx, port is up to your proxy client configure
+
+minikube start --docker-env HTTP_PROXY=http://192.168.99.1:8118 --docker-env HTTPS_PROXY=http://192.168.99.1:8118 --docker-env NO_PROXY=127.0.0.1/24
+
+According some other issues, the latest version minikube don't work well with the above script
+
+Here I offer my ultimate solution !
+
+Just run Step One to Step Three's scripts, then create dir docker.system.d and file https-proxy.conf
+
+sudo mkdir /etc/systemd/system/docker.service.d
+sudo vi /etc/systemd/system/docker.service.d/https-proxy.conf
+
+type this content into file https-proxy.conf
+
+[Service]
+Environment="HTTPS_PROXY=https://proxy.example.com:443/"
+
+then flush changes and restart Docker
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+finally exit the ssh session and re-create the minikube VM
+
+exit
+minikube delete
+minikube start
