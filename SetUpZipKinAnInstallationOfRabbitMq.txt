@@ -9,7 +9,9 @@ docker run -d -p 9411:9411 \
   -e STORAGE_TYPE=elasticsearch -e ES_AWS_DOMAIN=your_domain \
   -v $HOME/.aws:/root/.aws:ro \
   openzipkin/zipkin
-
+  
+curl -sSL https://zipkin.io/quickstart.sh | bash -s
+java -jar zipkin.jar
 
   docker run -d -p 9411:9411 openzipkin/zipkin
   
