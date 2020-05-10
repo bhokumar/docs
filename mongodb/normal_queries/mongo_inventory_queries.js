@@ -195,12 +195,82 @@ db.inventory.find({
 db.inventory.find({
     status: "A"
 }, {
-    item: 1, status: 1, instock: 1
+    item: 1,
+    status: 1,
+    instock: 1
 });
 
 
 db.inventory.find({
     status: "A"
 }, {
-    item: 1, status: 1, instock: 1, _id: 0
+    item: 1,
+    status: 1,
+    instock: 1,
+    _id: 0
 });
+
+
+db.inventory.find({
+    status: "A"
+}, {
+    status: 0,
+    instock: 0
+});
+
+
+db.inventory.find({
+    "status": "A"
+}, {
+    "item": 1,
+    "status": 1,
+    "size.uom": 1
+});
+
+
+db.inventory.find({
+    "status": "A"
+}, {
+    "size.uom": 0
+});
+
+db.inventory.find({
+    status: "A"
+}, {
+    item: 1,
+    status: 1,
+    "instock.qty": 1
+});
+
+db.inventory.find({
+    status: "A"
+}, {
+    item: 1,
+    status: 1,
+    "instock.qty": 1
+});
+
+db.inventory.find({
+    status: "A"
+}, {
+    item: 1,
+    status: 1,
+    instock: {
+        $slice: -1
+    }
+});
+
+db.inventory.find({
+    status: {
+        "$exists": false
+    }
+});
+
+
+var myCursor = db.users.find({
+    type: 2
+});
+
+while (myCursor.hasNext()) {
+    print(tojson(myCursor.next()));
+}
