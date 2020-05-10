@@ -12,3 +12,18 @@ db.getCollection("customers").updateOne({
         "status": "D"
     }
 });
+
+db.customers.updateOne({
+        _id: 1
+    },
+    [{
+        $set: {
+            lastModified: "$$NOW",
+            cancellation: {
+                date: "$$CLUSTER_TIME",
+                reason: "user request"
+            },
+            status: "D"
+        }
+    }]
+);
