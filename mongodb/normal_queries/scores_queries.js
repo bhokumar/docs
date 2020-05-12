@@ -5,3 +5,11 @@ db.scores.update({
         lowScore: 150
     }
 });
+
+db.scores.update({
+    _id: 1
+}, {
+    $max: {
+        highScore: 900
+    }
+});
