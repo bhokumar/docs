@@ -1,4 +1,4 @@
-var myCursor = db.orders.aggregate([{
+db.orders.aggregate([{
         $match: {
             status: "A"
         }
@@ -18,10 +18,6 @@ var myCursor = db.orders.aggregate([{
     }
 ]);
 
-while (myCursor.hasNext()) {
-   print(tojson(myCursor.next()));
-}
-
 db.orders.explain().aggregate([{
         $match: {
             status: "A"
@@ -40,4 +36,194 @@ db.orders.explain().aggregate([{
             total: -1
         }
     }
+]);
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            total: {
+                "$sum": "$amount"
+            },
+            customerId: {
+                "$first": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            total: {
+                "$sum": "$amount"
+            },
+            customerId: {
+                "$addToSet": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            maximumAmountWithStatus: {
+                "$max": "$amount"
+            },
+            customerId: {
+                "$addToSet": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            minAmountWithStatus: {
+                "$min": "$amount"
+            },
+            customerId: {
+                "$addToSet": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            avgAmountWithStatus: {
+                "$avg": "$amount"
+            },
+            customerId: {
+                "$addToSet": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+
+db.orders.aggregate([{
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            avgAmountWithStatus: {
+                "$avg": "$amount"
+            },
+            minAmountWithStatus: {
+                "$min": "$amount"
+            },
+            maxAmountWithStatus: {
+                "$max": "$amount"
+            },
+            customerId: {
+                "$addToSet": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
+        }
+    }
+]);
+
+
+db.orders.aggregate([{
+    $match: {
+        amount: {
+            $gte: 25
+        }
+    }
+},
+{
+    $group: {
+        _id: "$status",
+        avgAmountWithStatus: {
+            "$avg": "$amount"
+        },
+        minAmountWithStatus: {
+            "$min": "$amount"
+        },
+        maxAmountWithStatus: {
+            "$max": "$amount"
+        },
+        customerIds: {
+            "$push": "$cust_id"
+        }
+    }
+},
+{
+    $sort: {
+        "amount": 1
+    }
+}
 ]);
