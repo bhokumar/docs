@@ -198,32 +198,48 @@ db.orders.aggregate([{
 
 
 db.orders.aggregate([{
-    $match: {
-        amount: {
-            $gte: 25
+        $match: {
+            amount: {
+                $gte: 25
+            }
+        }
+    },
+    {
+        $group: {
+            _id: "$status",
+            avgAmountWithStatus: {
+                "$avg": "$amount"
+            },
+            minAmountWithStatus: {
+                "$min": "$amount"
+            },
+            maxAmountWithStatus: {
+                "$max": "$amount"
+            },
+            customerIds: {
+                "$push": "$cust_id"
+            }
+        }
+    },
+    {
+        $sort: {
+            "amount": 1
         }
     }
-},
-{
-    $group: {
-        _id: "$status",
-        avgAmountWithStatus: {
-            "$avg": "$amount"
-        },
-        minAmountWithStatus: {
-            "$min": "$amount"
-        },
-        maxAmountWithStatus: {
-            "$max": "$amount"
-        },
-        customerIds: {
-            "$push": "$cust_id"
+]);
+
+
+db.orders.aggregate([{
+        $match: {
+            status: "A"
+        }
+    },
+    {
+        $group: {
+            _id: "$cust_id",
+            total: {
+                $sum: "$amount"
+            }
         }
     }
-},
-{
-    $sort: {
-        "amount": 1
-    }
-}
 ]);
