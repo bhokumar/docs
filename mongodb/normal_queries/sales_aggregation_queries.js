@@ -72,3 +72,28 @@ db.sales.aggregate([{
         }
     }
 ]);
+
+
+db.sales.aggregate([
+    // First Stage
+    {
+        $unwind: "$items"
+    },
+
+    // Second Stage
+    {
+        $unwind: "$items.tags"
+    },
+
+    // Third Stage
+    {
+        $group: {
+            _id: "$items.tags",
+            totalSalesAmount: {
+                $sum: {
+                    $multiply: ["$items.price", "$items.quantity"]
+                }
+            }
+        }
+    }
+])
