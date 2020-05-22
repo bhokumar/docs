@@ -55,3 +55,37 @@ db.sales.insertMany([{
         "date": ISODate("2016-02-06T20:20:13Z")
     },
 ]);
+
+db.sales.insertMany([{
+        _id: "1",
+        "items": [{
+                "name": "pens",
+                "tags": ["writing", "office", "school", "stationary"],
+                "price": NumberDecimal("12.00"),
+                "quantity": NumberInt("5")
+            },
+            {
+                "name": "envelopes",
+                "tags": ["stationary", "office"],
+                "price": NumberDecimal("1.95"),
+                "quantity": NumberInt("8")
+            }
+        ]
+    },
+    {
+        _id: "2",
+        "items": [{
+                "name": "laptop",
+                "tags": ["office", "electronics"],
+                "price": NumberDecimal("800.00"),
+                "quantity": NumberInt("1")
+            },
+            {
+                "name": "notepad",
+                "tags": ["stationary", "school"],
+                "price": NumberDecimal("14.95"),
+                "quantity": NumberInt("3")
+            }
+        ]
+    }
+])
